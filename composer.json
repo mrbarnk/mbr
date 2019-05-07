@@ -1,0 +1,17 @@
+{
+    "require": {
+        "illuminate/database": "^5.8",
+        "illuminate/hashing": "^5.8",
+        "illuminate/http": "^5.8",
+        "illuminate/validation": "^5.8"
+    },
+    "autoload": {
+        "classmap": [
+            "App"
+        ]
+    },
+
+    "config": {
+        "sort-packages": true
+    }
+}
