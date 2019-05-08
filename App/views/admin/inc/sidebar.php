@@ -29,13 +29,18 @@
         <a href="<?=url('admin')?>">
           <i class="fa fa-dashboard"></i> <span>Dashboard</span>
           <span class="pull-right-container">
-            <i class="fa fa-angle-left pull-right"></i>
+            <i class="fa fa-star pull-right"></i>
           </span>
         </a>
       </li>
       <li>
         <a href="<?=url('admin/newpost')?>">
           <i class="fa fa-pencil"></i> <span>New Post</span>
+        </a>
+      </li>
+      <li>
+        <a href="<?=url('admin/newpage')?>">
+          <i class="fa fa-file"></i> <span>New Page</span>
         </a>
       </li>
       <li>

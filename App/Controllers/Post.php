@@ -12,7 +12,7 @@ class Post extends Controller
 
   public function __construct()
   {
-    $this->middleware('Auth');
+    $this->middleware('Authentication');
   }
   public function store()
   {
@@ -24,17 +24,7 @@ class Post extends Controller
      define('RULES', rules());
      $RULES = rules();
   //print_r($request->all());
-    $val = $this->validate($request->all(), [
-      'title' =>  'required',
-      'message' => 'required',
-      'category' => 'required|integer'
-    ]);
 
-    if(is_array($val)) {
-      flash()->set('errors', json_encode($val));
-      return back();
-      return false;
-    }
 
     // if($val->fails()) {
     //   foreach ($val->messages() as $keyvalue) {
@@ -59,13 +49,24 @@ class Post extends Controller
           $moved = ($image->move('postimages', $newname));
           $array = ['link' => url('postimages/'.$newname)];
           echo json_encode((object) $array);
-          // return false;
+          return false;
           // exit;
           }else {
               return 'Invalid file.';
           }
         }
       // }
+      $val = $this->validate($request->all(), [
+        'title' =>  'required',
+        'message' => 'required',
+        'category' => 'required|integer'
+      ]);
+
+      if(is_array($val)) {
+        flash()->set('errors', json_encode($val));
+        return back();
+        return false;
+      }
 
       $title = addslashes($request->title);
       $description = addslashes($request->message);

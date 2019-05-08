@@ -7,6 +7,11 @@
 class Database extends Controller
 {
 
+  public function __construct()
+  {
+    $this->middleware('Authentication');
+  }
+
   public function index() {
     // $this->down();
     return $this->up();
@@ -14,48 +19,61 @@ class Database extends Controller
   public function up()
   {
     // Capsule::dropIfExists('users');
-    Capsule::schema()->create('users', function ($table) {
-        $table->increments('id')->index();
-        $table->string('username');
-        $table->string('password_');
-        $table->string('status');
-        $table->string('user_role');
-        $table->string('email')->unique();
-        $table->timestamps();
-    });
+    // Capsule::schema()->create('users', function ($table) {
+    //     $table->increments('id')->index();
+    //     $table->string('username');
+    //     $table->string('password_');
+    //     $table->string('status');
+    //     $table->string('user_role');
+    //     $table->string('email')->unique();
+    //     $table->timestamps();
+    // });
+    // // Capsule::dropIfExists('posts');
+    // Capsule::schema()->create('posts', function ($table) {
+    //     $table->increments('id');
+    //     $table->string('title');
+    //     $table->text('description');
+    //     $table->string('cat_id');
+    //     $table->string('user_id');
+    //     $table->string('featured_image');
+    //     $table->string('view');
+    //     $table->integer('status');
+    //     // $table->
+    //     $table->timestamps();
+    // });
+    //
+    // Capsule::schema()->create('categories', function ($table)
+    // {
+    //   $table->increments('id');
+    //   $table->string('title')->unique();
+    //   $table->string('status');
+    //   $table->string('user_id');
+    //   $table->timestamps();
+    // });
+    //
+    // Capsule::schema()->create('menus', function ($table)
+    // {
+    //   $table->increments('id');
+    //   $table->string('title')->unique();
+    //   $table->string('status');
+    //   $table->string('type');
+    //   $table->string('parent_id')->nullable();
+    //   $table->string('url');
+    //   $table->string('user_id');
+    //   $table->timestamps();
+    // });
+
     // Capsule::dropIfExists('posts');
-    Capsule::schema()->create('posts', function ($table) {
-        $table->increments('id');
-        $table->string('title');
-        $table->text('description');
-        $table->string('cat_id');
-        $table->string('user_id');
-        $table->string('featured_image');
-        $table->string('view');
-        $table->integer('status');
-        // $table->
-        $table->timestamps();
-    });
-
-    Capsule::schema()->create('categories', function ($table)
-    {
-      $table->increments('id');
-      $table->string('title')->unique();
-      $table->string('status');
-      $table->string('user_id');
-      $table->timestamps();
-    });
-
-    Capsule::schema()->create('menus', function ($table)
-    {
-      $table->increments('id');
-      $table->string('title')->unique();
-      $table->string('status');
-      $table->string('parent_id')->nullable();
-      $table->string('url');
-      $table->string('user_id');
-      $table->timestamps();
-    });
+    // Capsule::schema()->create('pages', function ($table) {
+    //     $table->increments('id');
+    //     $table->string('title');
+    //     $table->text('description');
+    //     $table->string('user_id');
+    //     $table->string('view');
+    //     $table->integer('status');
+    //     // $table->
+    //     $table->timestamps();
+    // });
 
   }
 

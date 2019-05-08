@@ -6,6 +6,10 @@
  use Illuminate\Http\Request;
 class Cat extends Controller
 {
+  public function __construct()
+  {
+    $this->middleware('Authentication');
+  }
   public function store() {
     // code...
     $request = new Request;

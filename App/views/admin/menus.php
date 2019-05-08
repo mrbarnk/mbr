@@ -58,7 +58,7 @@
                         <tr role="row" class="odd">
                     			<td class="sorting_1"><?=$topic->title; ?></td>
                           <td><?=$topic->created_at; ?></td>
-                          <td><a href="<?=url('admin/menus/'.$topic->id.'/edit'); ?>"><i class="fa fa-edit"></i></a> || <a href="#"><i class="fa fa-trash"></i></a> || <a href="#"><i class="fa fa-eye"></i></a></td>
+                          <td><a href="<?=url('admin/menus/'.$topic->id.'/edit'); ?>"><i class="fa fa-edit"></i></a> || <a href="<?=url('admin/deletemenu/'.$topic->id) ?>"><i class="fa fa-trash"></i></a> || <a href="#"><i class="fa fa-eye"></i></a></td>
                     		</tr>
                       <?php
                     }
@@ -109,6 +109,16 @@
                     </select>
                 </div>
 
+                <div class="form-group">
+                    <label>Menu Type</label>
+                    <?php //echo (json_encode($_GET)); ?>
+                    <select type="text" class="form-control" name="type">
+                      <option value="<?php echo $menu->type; ?>" selected><?php echo $menu->type; ?></option>
+                      <option value="header">Header</option>
+                      <option value="footer">Footer</option>
+                    </select>
+                </div>
+
               <div class="form-group">
                 <label for="">Status</label>
                 <br>
@@ -156,6 +166,15 @@
                           }
                         }
                       ?>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Menu Type</label>
+                    <?php //echo (json_encode($_GET)); ?>
+                    <select type="text" class="form-control" name="type">
+                      <option value="header">Header</option>
+                      <option value="footer">Footer</option>
                     </select>
                 </div>
 

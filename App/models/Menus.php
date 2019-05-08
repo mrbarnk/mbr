@@ -9,5 +9,5 @@ use Illuminate\Database\Eloquent\Model;
 class Menus extends Model
 {
   protected $table = 'menus';
-  protected $fillable = ['title', 'url', 'parent_id', 'status', 'user_id'];
+  protected $fillable = ['title', 'url', 'parent_id', 'type', 'status', 'user_id'];
 }

@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 
 class Menu extends Controller
 {
+  public function __construct()
+  {
+    $this->middleware('Authentication');
+  }
 
   public function store()
   {
@@ -34,6 +38,7 @@ class Menu extends Controller
         'title' => $request->title,
         'url' => $request->link_to,
         'parent_id' => $request->parent_id,
+        'type' =>$request->type,
         'status' => $request->status,
         'user_id' => session()->get('id')
       ]);
@@ -74,6 +79,7 @@ class Menu extends Controller
         'title' => $request->title,
         'url' => $request->link_to,
         'parent_id' => $request->parent_id,
+        'type' =>$request->type,
         'status' => $request->status,
         'user_id' => session()->get('id')
       ]);

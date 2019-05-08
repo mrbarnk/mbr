@@ -73,6 +73,26 @@ class Admin extends Controller
 
   public function deletemenu($params = '')
   {
-    echo $params;
+      $param = Menus::find($params);
+
+      if ($param) {
+        Menus::where('id', $params)->delete($params);
+          flash()->set('error', 'Menu has been deleted.');
+          return redirect('admin/menus');//-
+          exit;
+      }
+      $this->errorPage();
+  }
+  public function newpage($params='')
+  {
+    $data = Pages::all();
+    $param = Pages::find($params);
+
+    if (($params != '')) {
+      if (!$param) {
+        $this->errorPage();
+      }
+    }
+    $this->view('admin/newpage', ['pages' => $data, 'post' => $param]);
   }
 }
