@@ -225,10 +225,13 @@
         $('#edit').froalaEditor({
           toolbarButtons: ['bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color', 'inlineStyle', 'inlineClass', 'clearFormatting', '|', 'emoticons', 'fontAwesome', 'specialCharacters', '-', 'paragraphFormat', 'lineHeight', 'paragraphStyle', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '|', 'insertLink', 'insertImage', 'insertVideo', 'insertFile', 'insertTable', '-', 'insertHR', 'selectAll', 'getPDF', 'print', 'help', 'html', 'fullscreen', '|', 'undo', 'redo'],
           imageUploadURL: "<?=url('post/store');?>",
-          imageUploadParams: "file"
+          imageUploadParams: "file",
+          width: '100%'
         })
       // });
     </script>
+
+
 
   <!-- <script type="text/javascript" src="<?=url('js/froala_editor.min.js');?>"></script>
   <script type="text/javascript" src="<?=url('js/plugins/align.min.js');?>"></script>
@@ -300,6 +303,9 @@ $.widget.bridge('uibutton', $.ui.button);
 <script src="<?=url('plugins/jvectormap/jquery-jvectormap-world-mill-en.js')?>"></script>
 <!-- jQuery Knob Chart -->
 <script src="<?=url('bower_components/jquery-knob/dist/jquery.knob.min.js')?>"></script>
+<!-- DataTables -->
+<script src="<?=url('bower_components/datatables.net/js/jquery.dataTables.min.js')?>"></script>
+<script src="<?=url('bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js')?>"></script>
 <!-- daterangepicker -->
 <script src="<?=url('bower_components/moment/min/moment.min.js')?>"></script>
 <script src="<?=url('bower_components/bootstrap-daterangepicker/daterangepicker.js')?>"></script>
@@ -317,5 +323,19 @@ $.widget.bridge('uibutton', $.ui.button);
 <script src="<?=url('dist/js/pages/dashboard.js')?>"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="<?=url('dist/js/demo.js')?>"></script>
+
+<script>
+$(function () {
+  $('#example1').DataTable()
+  $('#example2').DataTable({
+    'paging'      : true,
+    'lengthChange': false,
+    'searching'   : false,
+    'ordering'    : true,
+    'info'        : true,
+    'autoWidth'   : false
+  })
+})
+</script>
 </body>
 </html>

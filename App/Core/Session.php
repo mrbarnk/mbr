@@ -1,6 +1,19 @@
 <?php
 
 class Session {
+  public function __construct($key = '') {
+    // // return 'ss';
+    if (!is_null($key)) {
+        if ($this->has( $key )) {
+          $val = $key;
+          $this->delete( $key );
+          return $this->get( $val );
+        }
+    }
+  }
+  function put($key, $val) {
+    return $this->set($key, $val);
+  }
   function start() {
     session_start();
   }

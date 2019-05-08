@@ -9,9 +9,13 @@
   <div class="login-box-body">
     <p class="login-box-msg">Sign in to start your session</p>
     <?php @includeFile('error.errors') ?>
-    <form action="<?php echo url('auth/login') ?>" method="post">
+    <form action="<?php echo url('auth/store') ?>" method="post">
       <div class="form-group has-feedback">
         <input name="username" type="text" class="form-control" placeholder="Username" value="<?=old('username') ?>">
+        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+      </div>
+      <div class="form-group has-feedback">
+        <input name="email" type="email" class="form-control" placeholder="Email" value="<?=old('username') ?>">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
@@ -44,7 +48,7 @@
     <!-- /.social-auth-links -->
 
     <a href="#">I forgot my password</a><br>
-    <a href="<?php echo url('register') ?>" class="text-center">Register a new membership</a>
+    <a href="<?php echo url('admin/login') ?>" class="text-center">Login</a>
 
   </div>
   <!-- /.login-box-body -->

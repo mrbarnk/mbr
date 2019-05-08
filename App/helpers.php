@@ -19,12 +19,23 @@ function includeFile($path) {
 
   }
 }
-function goback() {
+function back() {
 	header("Location: {$_SERVER['HTTP_REFERER']}");
 	exit;
 }
-function session() {
-  return new Session;
+function session($key = '') {
+  return new Session($key);
+}
+
+function flash() {
+  return new Flash;
+}
+function old($data) {
+  return flash()->get($data);
+}
+
+function saveOldInput($key, $data) {
+  return flash()->put($key,$data);
 }
 
 function url($data) {

@@ -15,7 +15,11 @@ class Database extends Controller
   {
     // Capsule::dropIfExists('users');
     Capsule::schema()->create('users', function ($table) {
-        $table->increments('id');
+        $table->increments('id')->index();
+        $table->string('username');
+        $table->string('password_');
+        $table->string('status');
+        $table->string('user_role');
         $table->string('email')->unique();
         $table->timestamps();
     });
@@ -24,6 +28,7 @@ class Database extends Controller
         $table->increments('id');
         $table->string('title');
         $table->text('description');
+        $table->string('cat_id');
         $table->string('user_id');
         $table->string('featured_image');
         $table->string('view');
@@ -32,11 +37,32 @@ class Database extends Controller
         $table->timestamps();
     });
 
+    Capsule::schema()->create('categories', function ($table)
+    {
+      $table->increments('id');
+      $table->string('title')->unique();
+      $table->string('status');
+      $table->string('user_id');
+      $table->timestamps();
+    });
+
+    Capsule::schema()->create('menus', function ($table)
+    {
+      $table->increments('id');
+      $table->string('title')->unique();
+      $table->string('status');
+      $table->string('parent_id')->nullable();
+      $table->string('url');
+      $table->string('user_id');
+      $table->timestamps();
+    });
+
   }
 
   public function down() {
-    Capsule::schema()->drop('users');
-    Capsule::schema()->drop('posts');
+    // Capsule::schema()->drop('users');
+    // Capsule::schema()->drop('categories');
+    // Capsule::schema()->drop('posts');
     // Schema::drop('flights');
   }
 }

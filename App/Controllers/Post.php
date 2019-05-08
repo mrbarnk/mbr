@@ -26,14 +26,13 @@ class Post extends Controller
   //print_r($request->all());
     $val = $this->validate($request->all(), [
       'title' =>  'required',
-      'message' => 'required'
+      'message' => 'required',
+      'category' => 'required|integer'
     ]);
 
     if(is_array($val)) {
-      // print_r($val);
-      foreach($val as $kk => $valls) {
-        echo $valls.'\n';
-      }
+      flash()->set('errors', json_encode($val));
+      return back();
       return false;
     }
 
@@ -68,8 +67,8 @@ class Post extends Controller
         }
       // }
 
-      $title = $request->title;
-      $description = $request->message;
+      $title = addslashes($request->title);
+      $description = addslashes($request->message);
 
       $posts = $this->model('Posts');
 
@@ -77,6 +76,7 @@ class Post extends Controller
       $posts = $posts::create([
         'title' => $title,
         'featured_image' => $newname,
+        'category' => $request->category,
         'user_id' => session()->get('id'),
         'description' => $request->message,
         'view' => '0',
@@ -84,9 +84,12 @@ class Post extends Controller
       ]);
 
       if($posts) {
+        flash()->set('success', 'Post successfully added.');
         return back();
       } else {
-        echo 'Error';//->with('back')
+        flash()->set('errors', 'Unable to make post.');
+        return back();
+        return false;
       }
     // $message = $request->all());
 

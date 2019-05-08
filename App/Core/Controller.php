@@ -30,7 +30,7 @@ class Controller {
             return new $middleware;
         }
 
-        return exit('Middleware doesn\'t exist');
+        return exit('Middleware '.$middleware.' doesn\'t exist');
     }
 
     /**
@@ -43,22 +43,50 @@ class Controller {
         if (file_exists('../app/views/' . $view . '.php')) {
 
             require_once '../app/views/' . $view . '.php';
+            exit;
         }
+        die("View ".$view. " not found.");
+    }
+
+    /**
+     * Basic 404 loader
+     * @param   string $view    404 file
+     * @param   array $data     Array data
+     */
+    public function errorPage() {
+        $view = '404';
+        if (file_exists('../app/views/' . $view . '.php')) {
+
+            require_once '../app/views/' . $view . '.php';
+            exit;
+        }
+        die("View ".$view. " not found.");
     }
 
     public function validate($data, $rules)
     {
       $errors = [];
+      $saveOldInput = [];
       if (is_array($rules)) {
         foreach ($rules as $keys => $values) {
-          if($values == 'required') {
+        saveOldInput($keys, $data[$keys]);
+          $values = explode('|', $values);
+          if(in_array('required',$values)) {
             if (empty($data[$keys])) {
                 array_push($errors ,ucfirst($keys). ' is required.');
+                unset($data[$keys]);
               }
           }
-          if($values == 'integer') {
-            if (!is_numeric($keys)) {
+          if(in_array('integer',$values)) {
+            if (!is_numeric($data[$keys])) {
                 array_push($errors ,ucfirst($keys). ' is not an integer.');
+                unset($data[$keys]);
+              }
+          }
+          if (in_array('email',$values)) {
+            if (!filter_var($data[$keys], FILTER_VALIDATE_EMAIL)) {
+                  array_push($errors ,ucfirst($keys). ' is not valid email address');
+                  unset($data[$keys]);
               }
           }
           // return $key;

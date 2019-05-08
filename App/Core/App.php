@@ -9,8 +9,8 @@ class App {
      * @var $method     string
      * @var $params     array
      */
-    protected $controller = 'home';
-    protected $method = 'index';
+    protected $controller = 'Controller';
+    protected $method = 'errorPage';
     protected $params = [];
 
     public function __construct() {
@@ -21,9 +21,11 @@ class App {
 
             $this->controller = $url[0];
             unset($url[0]);
+            require_once '../app/controllers/' . $this->controller . '.php';
+        }else {
+          require_once '../app/core/' . $this->controller . '.php';
         }
 
-        require_once '../app/controllers/' . $this->controller . '.php';
 
         $this->controller = new $this->controller;
 
@@ -34,16 +36,13 @@ class App {
                 $this->method = $url[1];
                 unset($url[1]);
             }
+        } else {
+          $this->method = 'index';
         }
 
         $this->params = $url ? array_values($url) : [];
-        if (isset($_POST)) {
-            $this->params = $_POST;
-        }elseif(isset($_FILES)) {
-          $this->params = $_FILES;
-        }else {
-          $data = "";
-        }
+        // print_r ($this->params);
+
         call_user_func_array([$this->controller, $this->method], $this->params);
     }
 
