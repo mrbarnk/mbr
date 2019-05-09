@@ -33,7 +33,7 @@ class Photo extends Controller
           $newname = uniqid('', true).'.'.$ext;
           $moved = ($image->move('postimages', $newname));
           $array = ['link' => url('postimages/'.$newname)];
-          echo json_encode((object) $array);
+          echo stripslashes(json_encode((object) $array));
           return false;
           // exit;
           }else {
@@ -41,7 +41,7 @@ class Photo extends Controller
           }
         }
       // }
-      
+
 
   }
 }

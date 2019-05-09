@@ -40,40 +40,85 @@
         </div>
         <div class="box-body">
           <div class="col-sm-12">
-            <form class="" action="<?=url('post/store');?>" method="post" enctype="multipart/form-data">
-              <div class="form-group">
-                  <label>Featured Image (*)</label>
-                  <input type="file" class="form-control" name="file" required>
-              </div>
-              <!-- <br> -->
-              <?php
-                // print_r($_SESSION);
-              ?>
+            <?php //print_r($data) ?>
+            <?php if (isset($data['post_edit'])): ?>
+              <img height="250" width="100%" src="<?php echo url('postimages/'.$data['post_edit']->featured_image) ?>" alt="">
+              <form class="" action="<?=url('post/update');?>" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label>Featured Image (*)</label>
+                    <input type="file" class="form-control" name="file">
+                </div>
+                <!-- <br> -->
+                <?php
+                  // print_r($_SESSION);
+                ?>
 
-              <div class="form-group">
-                  <label>Categories (*)</label>
-                  <select class="form-control" name="category" required>
-                    <option value="">Select categories</option>
-                    <?php if (isset($data)): ?>
-                      <?php foreach ($data as $keyvalue): ?>
-                        <option value="<?php echo $keyvalue->id ?>"><?php echo $keyvalue->title ?></option>
-                      <?php endforeach; ?>
-                    <?php endif; ?>
-                  </select>
-              </div>
+                <div class="form-group">
+                    <label>Categories (*)</label>
+                    <select class="form-control" name="category" required>
+                      <option value="">Select categories</option>
+                      <?php if (isset($data['cats'])): ?>
+                        <?php foreach ($data['cats'] as $keyvalue): ?>
+                          <?php print_r($data['post_edit']) ?>
+                          <?php if ($keyvalue->id == $data['post_edit']->category): ?>
+                              <option value="<?php echo $data['post_edit']->category ?>" selected><?=$keyvalue->title?></option>
+                          <?php endif; ?>
+                          <option value="<?php echo $keyvalue->id ?>"><?php echo $keyvalue->title ?></option>
+                        <?php endforeach; ?>
+                      <?php endif; ?>
+                    </select>
+                </div>
+                <input type="hidden" name="id" value="<?php echo $data['post_edit']->id; ?>">
 
-              <div class="form-group">
-                  <label>Text (*)</label>
-                  <input type="text" class="form-control" name="title" placeholder="Title ..." required value="<?=old('title') ?>">
-              </div>
-              <br>
-              <div class="form-group">
-                <label for="">Content (*)</label>
-                <textarea id="edit" name="message" class="form-control" required><?=old('message') ?></textarea>
+                <div class="form-group">
+                    <label>Text (*)</label>
+                    <input type="text" class="form-control" name="title" placeholder="Title ..." required value="<?=$data['post_edit']->title?>">
+                </div>
                 <br>
-                <input type="submit" name="save" class="btn btn-primary" value="Save">
-              </div>
-            </form>
+                <div class="form-group">
+                  <label for="">Content (*)</label>
+                  <textarea id="edit" name="message" class="form-control" required><?=$data['post_edit']->description; ?></textarea>
+                  <br>
+                  <input type="submit" name="save" class="btn btn-primary" value="Save">
+                </div>
+              </form>
+              <?php else: ?>
+
+                <form class="" action="<?=url('post/store');?>" method="post" enctype="multipart/form-data">
+                  <div class="form-group">
+                      <label>Featured Image (*)</label>
+                      <input type="file" class="form-control" name="file" required>
+                  </div>
+                  <!-- <br> -->
+                  <?php
+                    // print_r($_SESSION);
+                  ?>
+
+                  <div class="form-group">
+                      <label>Categories (*)</label>
+                      <select class="form-control" name="category" required>
+                        <option value="">Select categories</option>
+                        <?php if (isset($data['cats'])): ?>
+                          <?php foreach ($data['cats'] as $keyvalue): ?>
+                            <option value="<?php echo $keyvalue->id ?>"><?php echo $keyvalue->title ?></option>
+                          <?php endforeach; ?>
+                        <?php endif; ?>
+                      </select>
+                  </div>
+
+                  <div class="form-group">
+                      <label>Text (*)</label>
+                      <input type="text" class="form-control" name="title" placeholder="Title ..." required value="<?=old('title') ?>">
+                  </div>
+                  <br>
+                  <div class="form-group">
+                    <label for="">Content (*)</label>
+                    <textarea id="edit" name="message" class="form-control" required><?=old('message') ?></textarea>
+                    <br>
+                    <input type="submit" name="save" class="btn btn-primary" value="Save">
+                  </div>
+                </form>
+            <?php endif; ?>
           </div>
         </div>
 

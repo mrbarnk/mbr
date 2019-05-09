@@ -24,7 +24,21 @@ class Admin extends Controller
   {
 
     $data = Categories::all();
-    $this->view('admin/newpost',$data);
+    $this->view('admin/newpost',['cats' => $data]);
+  }
+
+  public function editpost($params = '')
+  {
+        $data = Categories::all();
+        $param = Posts::find($params);
+
+        if (($params != '')) {
+          if (!$param) {
+            $this->errorPage();
+          }
+        }
+        // print_r($param);
+        $this->view('admin/newpost', ['cats' => $data, 'post_edit' => $param] );
   }
 
   public function register() {

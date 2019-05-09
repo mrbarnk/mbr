@@ -7,7 +7,8 @@ class Home extends Controller {
 
         $user = $this->model('User');
         $user->name = $name;
-        $this->view('home/index', ['name' => $user->name]);
+        $this->defaultIndex('name');
+        // $this->view('home/index', ['name' => $user->name]);
     }
 
 }

@@ -14,6 +14,10 @@ class Database extends Controller
 
   public function index() {
     // $this->down();
+
+    Capsule::schema()->table('posts', function ($table) {
+        $table->string('slug')->unique()->before('title');
+      });
     return $this->up();
   }
   public function up()
@@ -32,6 +36,7 @@ class Database extends Controller
     // Capsule::schema()->create('posts', function ($table) {
     //     $table->increments('id');
     //     $table->string('title');
+    //     $table->string('slug')->unique();
     //     $table->text('description');
     //     $table->string('cat_id');
     //     $table->string('user_id');

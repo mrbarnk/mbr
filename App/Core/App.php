@@ -37,7 +37,13 @@ class App {
                 unset($url[1]);
             }
         } else {
-          $this->method = 'index';
+          if (method_exists($this->controller, 'index')) {
+
+              $this->method = 'index';
+              unset($url[1]);
+          }else {
+            $this->method = 'defaultIndex';
+          }
         }
 
         $this->params = $url ? array_values($url) : [];

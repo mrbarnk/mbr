@@ -63,6 +63,25 @@ class Controller {
         die("View ".$view. " not found.");
     }
 
+    /**
+     * Basic default index loader
+     * @param   string $view    default index file
+     * @param   array $data     Array data
+     */
+    public function defaultIndex($data = [] || '') {
+        $view = 'index';
+        if (file_exists('../app/views/' . $view . '.php')) {
+        $this->view($view, $data);
+            exit;
+        }
+        else {
+          file_put_contents('../app/views/' . $view . '.php', 'Hello <?php echo "This is the default index, edit me at view/index.php"?>');
+          $this->view($view, $data);
+          exit;
+        }
+        // die("View ".$view. " not found.");
+    }
+
     public function validate($data, $rules)
     {
       $errors = [];

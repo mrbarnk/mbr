@@ -73,10 +73,10 @@
                       ?>
                         <tr role="row" class="odd">
                     			<td class="sorting_1"><?=$topic->title; ?></td>
-                    			<td><?=$topic->category; ?></td>
+                    			<td><?=Categories::where('id', $topic->category)->first()->title; ?></td>
                     			<td><img width="50" height="50" src="<?=url('postimages/'.$topic->featured_image); ?>" alt=""> </td>
                           <td><?=$topic->created_at; ?></td>
-                          <td><a href="#"><i class="fa fa-edit"></i></a> || <a href="#"><i class="fa fa-trash"></i></a> || <a href="#"><i class="fa fa-eye"></i></a></td>
+                          <td><a href="<?php echo url('admin/editpost/'.$topic->id) ?>"><i class="fa fa-edit"></i></a> || <a href="#"><i class="fa fa-trash"></i></a> || <a href="#"><i class="fa fa-eye"></i></a></td>
                     		</tr>
                       <?php
                     }
