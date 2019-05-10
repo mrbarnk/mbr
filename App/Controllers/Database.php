@@ -14,10 +14,10 @@ class Database extends Controller
 
   public function index() {
     // $this->down();
-
-    Capsule::schema()->table('posts', function ($table) {
-        $table->string('slug')->unique()->before('title');
-      });
+    // 
+    // Capsule::schema()->table('posts', function ($table) {
+    //     // $table->string('slug')->unique()->before('title');
+    //   });
     return $this->up();
   }
   public function up()
@@ -78,6 +78,13 @@ class Database extends Controller
     //     $table->integer('status');
     //     // $table->
     //     $table->timestamps();
+    // });
+
+    // Capsule::schema()->create('subscribers', function ($table)
+    // {
+    //   $table->increments('id');
+    //   $table->string('email');
+    //   $table->timestamps();
     // });
 
   }

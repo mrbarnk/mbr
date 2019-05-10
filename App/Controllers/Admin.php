@@ -109,4 +109,24 @@ class Admin extends Controller
     }
     $this->view('admin/newpage', ['pages' => $data, 'post' => $param]);
   }
+  public function subscribers() {
+    $data = Subscriber::all();
+    $this->view('admin/subscribers', $data);
+  }
+  public function sendmail($params)
+  {
+    if (is_numeric($params)) {
+      $this->view('admin/sendmail');
+    }
+  }
+  public function sendemailtoall($params='')
+  {
+    if (empty($params)) {
+      $this->view('admin/sendmail');
+    }
+    else {
+      $this->errorPage();
+    }
+
+  }
 }

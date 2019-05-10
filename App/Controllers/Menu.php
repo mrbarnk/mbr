@@ -31,7 +31,6 @@ class Menu extends Controller
     }
     if (!isset($request->link_to)) {
         $request->link_to = url(str_replace(' ', '-', $request->title));
-        return false;
     }
     try {
       Menus::create([
