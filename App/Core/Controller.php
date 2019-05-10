@@ -22,6 +22,11 @@ class Controller {
         return exit('Model doesn\'t exist');
     }
 
+    /**
+     * Basic middleware loader
+     * @param   string $middleware   Middleware class
+     * @return  mix             Class instance or error if middleware doesn't exist
+     */
     public function middleware($middleware)
     {
         if (file_exists('../app/middleware/' . $middleware . '.php')) {
@@ -34,16 +39,38 @@ class Controller {
     }
 
     /**
+     * Basic mail sender loader
+     * @param   array $data   SendMail method
+     */
+    public function SendsMail(array $data)
+    {
+      if (array_key_exists('to_email', $data) && array_key_exists('message', $data)) {
+        $to = $data['to_email'];
+        if(isset($data['title'])) {
+            $subject = $data['title']." => ".config('app.name');
+        }else {
+            $subject = "New Email From ".config('app.name');
+        }
+        $txt = $data['message'];
+        $headers = "From: ".config('app.email') . "\r\n" .
+        "CC: ".$data['to_email'];
+
+        return mail($to,$subject,$txt,$headers);
+      }
+    }
+
+    /**
      * Basic view loader
      * @param   string $view    View file
      * @param   array $data     Array data
      */
-    protected function view($view, $data = []) {
+    public function view($view, $data = []) {
 
         if (file_exists('../app/views/' . $view . '.php')) {
 
             require_once '../app/views/' . $view . '.php';
-            exit;
+            // exit;
+            return false;
         }
         die("View ".$view. " not found.");
     }
@@ -54,6 +81,7 @@ class Controller {
      * @param   array $data     Array data
      */
     public function errorPage() {
+      header("HTTP/1.0 404 Not Found");
         $view = '404';
         if (file_exists('../app/views/' . $view . '.php')) {
 
@@ -68,16 +96,18 @@ class Controller {
      * @param   string $view    default index file
      * @param   array $data     Array data
      */
-    public function defaultIndex($data = [] || '') {
-        $view = 'index';
-        if (file_exists('../app/views/' . $view . '.php')) {
-        $this->view($view, $data);
-            exit;
-        }
-        else {
-          file_put_contents('../app/views/' . $view . '.php', 'Hello <?php echo "This is the default index, edit me at view/index.php"?>');
-          $this->view($view, $data);
-          exit;
+    public function defaultIndex($controller = 'Home', $data = [] || '') {
+        // $view = 'index';
+        if (file_exists('../app/controllers/' . $controller . '.php')) {
+          require_once '../app/controllers/' . $controller . '.php';
+
+          $controller = new $controller;
+
+          if (method_exists($controller, 'index')) {
+            $controller->index();
+          }
+        }else {
+          $this->errorPage();
         }
         // die("View ".$view. " not found.");
     }

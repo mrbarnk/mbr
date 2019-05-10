@@ -9,7 +9,7 @@ class App {
      * @var $method     string
      * @var $params     array
      */
-    protected $controller = 'Controller';
+    protected $controller = 'Home';
     protected $method = 'errorPage';
     protected $params = [];
 
@@ -17,13 +17,14 @@ class App {
 
         $url = $this->parseUrl();
 
+
         if (file_exists('../app/controllers/' . $url[0] . '.php')) {
 
             $this->controller = $url[0];
             unset($url[0]);
             require_once '../app/controllers/' . $this->controller . '.php';
         }else {
-          require_once '../app/core/' . $this->controller . '.php';
+          require_once '../app/controllers/' . $this->controller . '.php';
         }
 
 
@@ -45,7 +46,12 @@ class App {
             $this->method = 'defaultIndex';
           }
         }
+        if (is_array($url) && array_key_exists('0', $url) && method_exists($this->controller, $url[0])) {
 
+            $this->method = $url[0];
+            unset($url[0]);
+        }
+        // echo $this->controller;
         $this->params = $url ? array_values($url) : [];
         // print_r ($this->params);
 
