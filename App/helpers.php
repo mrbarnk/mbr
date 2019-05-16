@@ -47,8 +47,8 @@ function extend($value, $data = '')
   return $cont->view($value, $data);
 }
 function back() {
-	header("Location: {$_SERVER['HTTP_REFERER']}");
-	exit;
+  header("Location: {$_SERVER['HTTP_REFERER']}");
+  exit;
 }
 function session($key = '') {
   return new Session($key);
@@ -66,7 +66,9 @@ function saveOldInput($key, $data) {
 }
 
 function url($data) {
-  return BASE_URL.'public/'.$data;
+    $newConfig = new Config();
+
+  return $newConfig->base_url.$data;
 }
 
 function config($data) {
@@ -80,5 +82,7 @@ function config($data) {
 }
 
 function redirect($url) {
-  header("Location: ".BASE_URL.'public/'.$url);
+    $newConfig = new Config();
+    
+  header("Location: ".$newConfig->base_url.'public/'.$url);
 }

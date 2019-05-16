@@ -12,7 +12,7 @@ class Config
 
   public $base_url;
   
-  public function __construct(array $data = ['title' => 'Fxreport', 'description' => 'Bitcoin is a cryptocurrency and worldwide payment system. It is the first decentralized digital currency, as the system works without a central bank.', 'email' => 'help@fxreport.com', 'base_url' => 'http://localhost/fxreport/']) {
+  public function __construct(array $data = ['title' => 'Fxreport', 'description' => 'Bitcoin is a cryptocurrency and worldwide payment system. It is the first decentralized digital currency, as the system works without a central bank.', 'email' => 'help@fxreport.com', 'base_url' => 'http://localhost/fxreport/public/']) {
 
     $this->title = $data['title'];
     $this->description = $data['description'];

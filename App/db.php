@@ -1,6 +1,6 @@
 <?php
 
-define('BASE_URL', 'http://localhost/fxreport/');
+define('BASE_URL', 'https://emaillite.us/');
 
 use Illuminate\Database\Capsule\Manager as Capsule;
 
