@@ -13,9 +13,9 @@ class Controller {
      */
     protected function model($model) {
 
-        if (file_exists('../app/models/' . $model . '.php')) {
+        if (file_exists(__DIR__.'/../models/' . $model . '.php')) {
 
-            require_once '../app/models/' . $model . '.php';
+            require_once __DIR__.'/../models/' . $model . '.php';
             return new $model;
         }
 
@@ -29,9 +29,9 @@ class Controller {
      */
     public function middleware($middleware)
     {
-        if (file_exists('../app/middleware/' . $middleware . '.php')) {
+        if (file_exists(__DIR__.'/../middleware/' . $middleware . '.php')) {
 
-            require_once '../app/middleware/' . $middleware . '.php';
+            require_once __DIR__.'/../middleware/' . $middleware . '.php';
             return new $middleware;
         }
 
@@ -66,9 +66,9 @@ class Controller {
      */
     public function view($view, $data = []) {
 
-        if (file_exists('../app/views/' . $view . '.php')) {
+        if (file_exists(__DIR__.'/../views/' . $view . '.php')) {
 
-            require_once '../app/views/' . $view . '.php';
+            require_once __DIR__.'/../views/' . $view . '.php';
             // exit;
             return false;
         }
@@ -83,9 +83,9 @@ class Controller {
     public function errorPage() {
       header("HTTP/1.0 404 Not Found");
         $view = '404';
-        if (file_exists('../app/views/' . $view . '.php')) {
+        if (file_exists(__DIR__.'/../views/' . $view . '.php')) {
 
-            require_once '../app/views/' . $view . '.php';
+            require_once __DIR__.'/../views/' . $view . '.php';
             exit;
         }
         die("View ".$view. " not found.");
@@ -98,8 +98,8 @@ class Controller {
      */
     public function defaultIndex($controller = 'Home', $data = [] || '') {
         // $view = 'index';
-        if (file_exists('../app/controllers/' . $controller . '.php')) {
-          require_once '../app/controllers/' . $controller . '.php';
+        if (file_exists('../controllers/' . $controller . '.php')) {
+          require_once '../controllers/' . $controller . '.php';
 
           $controller = new $controller;
 
@@ -118,23 +118,26 @@ class Controller {
       $saveOldInput = [];
       if (is_array($rules)) {
         foreach ($rules as $keys => $values) {
-        saveOldInput($keys, $data[$keys]);
+        
+        // if(in_array($keys, $data)) {
+          saveOldInput($keys, $data[$keys]);
+        // }
           $values = explode('|', $values);
           if(in_array('required',$values)) {
             if (empty($data[$keys])) {
-                array_push($errors ,ucfirst($keys). ' is required.');
+                array_push($errors ,ucfirst(str_replace('_', ' ', $keys)). ' is required.');
                 unset($data[$keys]);
               }
           }
           if(in_array('integer',$values)) {
-            if (!is_numeric($data[$keys])) {
-                array_push($errors ,ucfirst($keys). ' is not an integer.');
+            if (!is_numeric(str_replace(' ', '', $data[$keys]))) {
+                array_push($errors ,ucfirst(str_replace('_', ' ', $keys)). ' is not an integer.');
                 unset($data[$keys]);
               }
           }
           if (in_array('email',$values)) {
             if (!filter_var($data[$keys], FILTER_VALIDATE_EMAIL)) {
-                  array_push($errors ,ucfirst($keys). ' is not valid email address');
+                  array_push($errors ,ucfirst(str_replace('_', ' ', $keys)). ' is not valid email address');
                   unset($data[$keys]);
               }
           }
@@ -149,6 +152,16 @@ class Controller {
       if(empty($errors)) {
         return '';
       }
+      if(is_array($errors)) {
+      flash()->set('errors', json_encode($errors));
+      // print_r(session()->get('error'));
+      return back();//->with('error', 'Hii');
+      // print_r($val);
+      // foreach($val as $kk => $valls) {
+      //   echo $valls.'\n';
+      // }
+    //   return false;
+    }
       return $errors;
     }
 

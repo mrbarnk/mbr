@@ -3,7 +3,7 @@
 
 class Hash {
 
-  function make($str, $algo=PASSWORD_BCRYPT, $opts=null, $prehash = null) {
+  public static function make($str, $algo=PASSWORD_BCRYPT, $opts=null, $prehash = null) {
     // $str .=self::mix_hash(self::prefix_hash($prehash).'_').$str;
     $opts = [
       'cost' => 12,
@@ -11,15 +11,15 @@ class Hash {
     return password_hash( $str, $algo, $opts );
   }
 
-  function check( $str, $hash ) {
+  public static function check( $str, $hash ) {
     return password_verify( $str, $hash );
   }
 
-  function needsRehash( $str, $algo=PASSWORD_DEFAULT, $opts=null ) {
+  public static function needsRehash( $str, $algo=PASSWORD_DEFAULT, $opts=null ) {
     return password_needs_rehash( $str, $algo, $opts );
   }
 
-  function random( $length=32 ) {
+  public static function random( $length=32 ) {
     return substr( md5( mt_rand() ), 0, $length );
   }
 

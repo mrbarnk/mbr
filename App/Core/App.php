@@ -18,13 +18,14 @@ class App {
         $url = $this->parseUrl();
 
 
-        if (file_exists('../app/controllers/' . $url[0] . '.php')) {
-
-            $this->controller = $url[0];
+        $url[0] = ucfirst($url[0]);
+        if (file_exists( __DIR__.'/../Controllers/' . $url[0] . '.php')) {
+            
+            $this->controller = ($url[0]);
             unset($url[0]);
-            require_once '../app/controllers/' . $this->controller . '.php';
+            require_once __DIR__.'/../Controllers/' . $this->controller . '.php';
         }else {
-          require_once '../app/controllers/' . $this->controller . '.php';
+          require_once  __DIR__.'/../Controllers/' . $this->controller . '.php';
         }
 
 
