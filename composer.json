@@ -3,7 +3,18 @@
     "description": "A minimalist mvc framework for php",
     "keywords": [
         "framework",
-        "mrbarnk"
+        "mrbarnk",
+        "micro framework",
+        "php"
+    ],
+    "homepage": "https://www.github.com/mrbarnk/framwork/",
+    "authors": [
+        {
+            "name": "Bankole Emmanuel",
+            "email": "mrbarnk1@gmail.com",
+            "role": "Developer",
+            "homepage": "https://mrbarnk.github.io/"
+        }
     ],
     "license": "MIT",
     "require": {
