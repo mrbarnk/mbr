@@ -1,4 +1,11 @@
 {
+    "name": "mrbarnk/framwork",
+    "description": "A minimalist mvc framework for php",
+    "keywords": [
+        "framework",
+        "mrbarnk"
+    ],
+    "license": "MIT",
     "require": {
         "illuminate/database": "^5.8",
         "illuminate/hashing": "^5.8",
