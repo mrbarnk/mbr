@@ -4,7 +4,7 @@
  * Controller class
  */
 
-class Controller {
+class Controller extends Serves {
 
     /**
      * Basic model loader
@@ -32,7 +32,8 @@ class Controller {
         if (file_exists(__DIR__.'/../middleware/' . $middleware . '.php')) {
 
             require_once __DIR__.'/../middleware/' . $middleware . '.php';
-            return new $middleware;
+            return (new $middleware);//.exit;
+
         }
 
         return exit('Middleware '.$middleware.' doesn\'t exist');
@@ -81,7 +82,7 @@ class Controller {
      * @param   array $data     Array data
      */
     public function errorPage() {
-      header("HTTP/1.0 404 Not Found");
+        header("HTTP/1.0 404 Not Found");
         $view = '404';
         if (file_exists(__DIR__.'/../views/' . $view . '.php')) {
 
@@ -112,15 +113,21 @@ class Controller {
         // die("View ".$view. " not found.");
     }
 
+    public function file() {
+
+        return $this->serve('public/uploaded/');
+    }
+
     public function validate($data, $rules)
     {
       $errors = [];
       $saveOldInput = [];
       if (is_array($rules)) {
         foreach ($rules as $keys => $values) {
-        
+
         // if(in_array($keys, $data)) {
-          saveOldInput($keys, $data[$keys]);
+          // saveOldInput($keys,
+          isset($data[$keys]) ? saveOldInput($keys, $data[$keys]) : "";
         // }
           $values = explode('|', $values);
           if(in_array('required',$values)) {
@@ -165,4 +172,42 @@ class Controller {
       return $errors;
     }
 
+    public function validateToJson($data, $rules)
+    {
+      $errors = [];
+      $saveOldInput = [];
+      if (is_array($rules)) {
+        foreach ($rules as $keys => $values) {
+
+        // if(in_array($keys, $data)) {
+          isset($data[$keys]) ? saveOldInput($keys, $data[$keys]) : "";
+        // }
+          $values = explode('|', $values);
+          if(in_array('required',$values)) {
+            if (empty($data[$keys])) {
+                array_push($errors ,ucfirst(str_replace('_', ' ', $keys)). ' is required.');
+                unset($data[$keys]);
+              }
+          }
+          if(in_array('integer',$values)) {
+            if (!is_numeric(str_replace(' ', '', $data[$keys]))) {
+                array_push($errors ,ucfirst(str_replace('_', ' ', $keys)). ' is not an integer.');
+                unset($data[$keys]);
+              }
+          }
+          if (in_array('email',$values)) {
+            if (!filter_var($data[$keys], FILTER_VALIDATE_EMAIL)) {
+                  array_push($errors ,ucfirst(str_replace('_', ' ', $keys)). ' is not valid email address');
+                  unset($data[$keys]);
+              }
+          }
+          // return $key;
+        }
+      }
+      if (empty($errors)) {
+          return '';
+      }
+      $errors = json_encode($errors);
+      return $errors;
+    }
 }
