@@ -9,7 +9,7 @@ Which means, if you are trying to make a dashboard for your project, just clone 
 
 We are using a premium text editor that will wow you.
 
-##1 Controllers
+## 1 Controllers
 
 Just want to let you know that this framework is working like codeigniter, it automatically get's the controller and method.
 
@@ -26,7 +26,7 @@ public function posts() {
   echo "Working fine";
 }
 ```
-##2 Views
+## 2 Views
 
 , or you call a view directly by saying 
 
@@ -36,7 +36,7 @@ Now, the home is a folder while the index is the actual `index.php` file name.
 
   ```don't use the extension when calling the view method.```
 
-##3 Models 
+## 3 Models 
 
 We are using [Laravel Eloquent](https://github.com/illuminate/database) to controller the database and the user models.
 
@@ -59,7 +59,7 @@ class User extends Model {
 
 }
 ```
-##4 Database 
+## 4 Database 
 
 Database has been set at the `App/db.php`.
 
@@ -69,7 +69,7 @@ Just like [laravel](https://github.com/laravel/laravel), you can also use middle
 
 Create your middleware at the middleware folder. Please refer to the laravel documentations if you know nothing about middleware and eloquents.
 
-##6 Validation
+## 6 Validation
 
 We also have validations just like laravel here.
 
@@ -91,14 +91,14 @@ You can also validate in ajax by calling `validateToJson` instead of `validate`.
 
 Please, check this file very well to see more examples i've done there.
 
-##7 Sessions
+## 7 Sessions
 
 ```
 session()->get('id');
 session()->put('name', 'mrbarnk');
 ```
 
-##8 Get old inputs
+## 8 Get old inputs
 
 ```
 
