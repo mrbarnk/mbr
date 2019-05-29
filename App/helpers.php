@@ -1,6 +1,6 @@
 <?php
 
-
+use Carbon\Carbon;
 
 function includeFile($path) {
 
@@ -54,6 +54,10 @@ function session($key = '') {
   return new Session($key);
 }
 
+function cookie($key = '') {
+  return new Cookie();//$key);
+}
+
 function flash() {
   return new Flash;
 }
@@ -84,5 +88,88 @@ function config($data) {
 function redirect($url) {
     $newConfig = new Config();
     
-  header("Location: ".$newConfig->base_url.'public/'.$url);
+  header("Location: ".$newConfig->base_url.''.$url);
+}
+
+function formatText ($text) {
+
+// The Regular Expression filter
+$reg_exUrl = "/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/";
+
+
+
+// Check if there is a url in the text
+if(preg_match($reg_exUrl, $text, $url)) {
+
+       // make the urls hyper links
+       return preg_replace($reg_exUrl, "<a target='_blank' href='{$url[0]}'>{$url[0]}</a>", $text);
+
+} else {
+
+       // if no urls in the text just return the text
+       return $text;
+
+}
+}
+
+function timeAgo($datetime, $full = false) {
+
+date_default_timezone_set('Africa/Lagos');
+  // Carbon::now('Africa/Lagos');
+  // $dt = Carbon::parse($datetime);
+  // return $dt->diffForHumans();
+
+
+    $now_timestamp = strtotime(date('Y-m-d H:i:s'));
+    
+    $diff_timestamp = $now_timestamp - strtotime($datetime);
+   
+     if($diff_timestamp >=60 && $diff_timestamp < 3600){
+      return round($diff_timestamp/60).' mins ago';
+     }
+     elseif($diff_timestamp >=3600 && $diff_timestamp < 86400){
+      return round($diff_timestamp/3600).' hours ago';
+     }
+     elseif($diff_timestamp >=86400 && $diff_timestamp < (86400*30)){
+      return round($diff_timestamp/(86400)).' days ago';
+     }
+     elseif($diff_timestamp >=(86400*30) && $diff_timestamp < (86400*365)){
+      return round($diff_timestamp/(86400*30)).' months ago';
+     }
+     else{
+      return round($diff_timestamp/(86400*365)).' years ago';
+     }
+
+    $now = new DateTime;
+    $ago = new DateTime($datetime);
+    $diff = $now->diff($ago);
+
+    $diff->w = floor($diff->d / 7);
+    $diff->d -= $diff->w * 7;
+
+    $string = array(
+        'y' => 'year',
+        'm' => 'month',
+        'w' => 'week',
+        'd' => 'day',
+        'h' => 'hour',
+        'i' => 'minute',
+        's' => 'second',
+    );
+    foreach ($string as $k => &$v) {
+        if ($diff->$k) {
+            $v = $diff->$k . ' ' . $v . ($diff->$k > 1 ? 's' : '');
+        } else {
+            unset($string[$k]);
+        }
+    }
+
+    if (!$full) $string = array_slice($string, 0, 1);
+    
+    return json_encode($string);
+    // if ($string['s'] < 60) {
+    //   $string['h'] = 
+    // }
+
+    return $string ? 'Away <i class="fa fa-circle fa-orange"></i> '.implode(', ', $string) . ' ago' : 'Online <i class="fa fa-circle fa-green"></i>';
 }
