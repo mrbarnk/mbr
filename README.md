@@ -1,13 +1,7 @@
 # Framwork
 A MVC Php micro framework with.
 
-Documentation will be ready soon, just a notice.
-
-This template already comes with everything you need to create a blog, we are using [AdminLTE](https://github.com/ColorlibHQ/AdminLTE) template.
-
-Which means, if you are trying to make a dashboard for your project, just clone this repo and all done.
-
-We are using a premium text editor that will wow you.
+Full documentation will be ready soon, just a notice.
 
 ## 1 Controllers
 
