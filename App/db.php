@@ -1,6 +1,10 @@
 <?php
 
-define('BASE_URL', 'https://emaillite.us/');
+// This is under development, will arrange something more handle soon.
+
+// For now, use the config file to set this up.
+
+define('BASE_URL', 'https://localhost');
 
 use Illuminate\Database\Capsule\Manager as Capsule;
 
@@ -9,7 +13,7 @@ $capsule = new Capsule;
 $capsule->addConnection([
     'driver'    => 'mysql',
     'host'      => 'localhost',
-    'database'  => 'fxreport',
+    'database'  => 'homestead',
     'username'  => 'root',
     'password'  => '',
     'charset'   => 'utf8',
