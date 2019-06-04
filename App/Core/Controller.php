@@ -16,7 +16,7 @@ class Controller extends Serves {
         if (file_exists(__DIR__.'/../models/' . $model . '.php')) {
 
             require_once __DIR__.'/../models/' . $model . '.php';
-            return new App\$model;
+            return new App\Model\$model;
         }
 
         return exit('Model doesn\'t exist');
@@ -32,7 +32,7 @@ class Controller extends Serves {
         if (file_exists(__DIR__.'/../middleware/' . $middleware . '.php')) {
 
             require_once __DIR__.'/../middleware/' . $middleware . '.php';
-            return (new $middleware);//.exit;
+            return (new App\Middleware\$middleware);//.exit;
 
         }
 
