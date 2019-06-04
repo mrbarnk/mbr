@@ -16,7 +16,7 @@ class Controller extends Serves {
         if (file_exists(__DIR__.'/../models/' . $model . '.php')) {
 
             require_once __DIR__.'/../models/' . $model . '.php';
-            return new $model;
+            return new App\$model;
         }
 
         return exit('Model doesn\'t exist');
