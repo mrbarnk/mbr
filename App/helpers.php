@@ -19,6 +19,13 @@ function includeFile($path) {
 
   }
 }
+
+
+function includes($path)
+{
+  includeFile($path);
+}
+
 function title()
 {
   $title = $_SERVER['REQUEST_URI'];
