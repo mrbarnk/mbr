@@ -16,8 +16,10 @@
             "homepage": "https://mrbarnk.github.io/"
         }
     ],
+    "type": "project",
     "license": "MIT",
     "require": {
+        "php": ">=5.3.0",
         "illuminate/database": "^5.8",
         "illuminate/hashing": "^5.8",
         "illuminate/http": "^5.8",
@@ -30,6 +32,9 @@
     },
 
     "config": {
-        "sort-packages": true
-    }
+        "sort-packages": true,
+        "optimize-autoloader": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
